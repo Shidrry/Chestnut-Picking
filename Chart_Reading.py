@@ -84,7 +84,7 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
             'axes.labelcolor': 'gray', # 軸ラベルの色
         }
     )
-    mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
+    mpf.plot(data, type='candle', figratio=(20, 10), style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
 
 def run_prediction_cycle():
     random_stock = random.choice(code_list)
