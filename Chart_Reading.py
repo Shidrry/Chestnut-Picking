@@ -109,7 +109,7 @@ def run_prediction_cycle():
         print("データ不足")
 
 if len(sys.argv) > 1:
-    n = sys.argv[1]
+    n = int(sys.argv[1])
 else:
     n = 5
 
