@@ -41,7 +41,7 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
         apds.append(mpf.make_addplot(atr_plot, type='line', color='fuchsia', ylabel='ATR', linestyle='-', width=0.75))
 
     # 移動平均線の追加
-    apds.append(mpf.make_addplot(data['MA5'], color='blue', linestyle='solid', width=0.75))
+    apds.append(mpf.make_addplot(data['MA5'], color='yellow', linestyle='solid', width=0.75))
     apds.append(mpf.make_addplot(data['MA10'], color='orange', linestyle='solid', width=0.75))
     apds.append(mpf.make_addplot(data['MA20'], color='green', linestyle='solid', width=0.75))
 
@@ -76,12 +76,12 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
         gridstyle='-.', # チャートのグリッドの種類 "--":実線, "--":破線, ":":点線, "-.":破線と点線の組み合わせ
         gridaxis='both',
         rc = {
-            'xtick.color': 'gray', # X軸の色
+            'xtick.color': 'white', # X軸の色
             'xtick.labelsize': 8, # X軸の文字サイズ
-            'ytick.color': 'gray', # Y軸の色
+            'ytick.color': 'white', # Y軸の色
             'ytick.labelsize': 8, # Y軸の文字サイズ
             'axes.labelsize': 10, # 軸ラベルの文字サイズ
-            'axes.labelcolor': 'gray', # 軸ラベルの色
+            'axes.labelcolor': 'white', # 軸ラベルの色
         }
     )
     mpf.plot(data, type='candle', figratio=(20, 10), style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
