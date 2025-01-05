@@ -57,7 +57,8 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     datetime_format = '%Y%m%d'
 
     # プロット実行
-    mpf.plot(data, type='candle', style='yahoo', volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
+    my_style = mpf.make_mpf_style(base_mpf_style='yahoo', up='red', down='blue')
+    mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
 
 def run_prediction_cycle():
     random_stock = random.choice(code_list)
@@ -86,8 +87,8 @@ def run_prediction_cycle():
         current_atr = atr.iloc[random_end - 1]
         print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}")
 
-        print("予測を入力（上昇: 1, 下降: 0）: ")
-        prediction = int(input())
+        print("Enterで結果表示")
+        input()
 
 
         initial_price = next_month_data['Open'].iloc[0]
@@ -104,7 +105,7 @@ def run_prediction_cycle():
         print(f"初期値: {initial_price:.2f}円, 高値: {high_price:.2f}円, 安値: {low_price:.2f}円")
         print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円, 閾値: {current_atr * 1.5:.2f}円")
 
-        print("次のチャートを見る準備ができたら、Enter")
+        print("Enterで次のチャート")
         input()
 
     else:
