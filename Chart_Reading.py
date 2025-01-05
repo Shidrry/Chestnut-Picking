@@ -60,7 +60,12 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     marketcolors = mpf.make_marketcolors(
         up='#DC143C', # 上昇時のろうそくの塗りつぶし色
         down='#00BFFF', # 下降時のろうそくの塗りつぶし色
-        edge='black'
+        edge='black',
+        wick={
+            # 辞書形式で、ろうそく足の真の色を指定
+            'up':'#DC143C', # 上昇時のろうそくの芯の色
+            'down':'#00BFFF' # 下降時のろうそくの芯の色
+        }
     )
     my_style = mpf.make_mpf_style(
         marketcolors=marketcolors,
