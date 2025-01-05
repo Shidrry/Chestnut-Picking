@@ -57,7 +57,11 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     datetime_format = '%Y%m%d'
 
     # プロット実行
-    my_style = mpf.make_mpf_style(base_mpf_style='yahoo', up='red', down='blue')
+    marketcolors = mpf.make_marketcolors(
+        up='red', # 上昇時のろうそくの塗りつぶし色
+        down='blue', # 下降時のろうそくの塗りつぶし色
+    )
+    my_style = mpf.make_mpf_style(marketcolors=marketcolors)
     mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
 
 def run_prediction_cycle():
