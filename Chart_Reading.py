@@ -60,8 +60,16 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     marketcolors = mpf.make_marketcolors(
         up='red', # 上昇時のろうそくの塗りつぶし色
         down='blue', # 下降時のろうそくの塗りつぶし色
+        edge='lightgray'
     )
-    my_style = mpf.make_mpf_style(marketcolors=marketcolors)
+    my_style = mpf.make_mpf_style(
+        marketcolors=marketcolors,
+        facecolor='white', # チャートの背景の色
+        edgecolor='black', # チャートの外枠の色
+        figcolor='white', # チャートの外側の色
+        gridstyle='-.', # チャートのグリッドの種類 "--":実線, "--":破線, ":":点線, "-.":破線と点線の組み合わせ
+        gridaxis='both'
+    )
     mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
 
 def run_prediction_cycle():
