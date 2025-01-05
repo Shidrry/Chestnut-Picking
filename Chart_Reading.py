@@ -58,17 +58,26 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
 
     # プロット実行
     marketcolors = mpf.make_marketcolors(
-        up='red', # 上昇時のろうそくの塗りつぶし色
-        down='blue', # 下降時のろうそくの塗りつぶし色
+        up='#DC143C', # 上昇時のろうそくの塗りつぶし色
+        down='#00BFFF', # 下降時のろうそくの塗りつぶし色
         edge='lightgray'
     )
     my_style = mpf.make_mpf_style(
         marketcolors=marketcolors,
-        facecolor='white', # チャートの背景の色
-        edgecolor='black', # チャートの外枠の色
-        figcolor='white', # チャートの外側の色
+        gridcolor='white',
+        facecolor='black', # チャートの背景の色
+        edgecolor='wihte', # チャートの外枠の色
+        figcolor='black', # チャートの外側の色
         gridstyle='-.', # チャートのグリッドの種類 "--":実線, "--":破線, ":":点線, "-.":破線と点線の組み合わせ
-        gridaxis='both'
+        gridaxis='both',
+        rc = {
+            'xtick.color': 'white', # X軸の色
+            'xtick.labelsize': 8, # X軸の文字サイズ
+            'ytick.color': 'white', # Y軸の色
+            'ytick.labelsize': 8, # Y軸の文字サイズ
+            'axes.labelsize': 10, # 軸ラベルの文字サイズ
+            'axes.labelcolor': 'white', # 軸ラベルの色
+        }
     )
     mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
 
