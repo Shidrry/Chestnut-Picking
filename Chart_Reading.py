@@ -34,7 +34,7 @@ def add_moving_averages(data):
     data['MA20'] = data['Close'].rolling(window=20).mean()
     return data
 
-def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=None, highlight_end=None):
+def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=None, highlight_end=None, color=None):
     apds = []
     if include_atr and atr_series is not None:
         atr_plot = atr_series.loc[data.index]  # ATRデータの範囲を調整
@@ -45,11 +45,11 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     apds.append(mpf.make_addplot(data['MA10'], color='orange', linestyle='solid', width=0.75))
     apds.append(mpf.make_addplot(data['MA20'], color='green', linestyle='solid', width=0.75))
 
-    if highlight_start and highlight_end:
+    if highlight_start and highlight_end and color:
         where_values = (data.index >= highlight_start) & (data.index <= highlight_end)
         y1_value = data['High'].max()
         y2_value = data['Low'].min()
-        kwargs = {'fill_between': dict(y1=y1_value, y2=y2_value, where=where_values, color='gray', alpha=0.3)}
+        kwargs = {'fill_between': dict(y1=y1_value, y2=y2_value, where=where_values, color=color, alpha=0.3)}
     else:
         kwargs = {}
 
@@ -89,7 +89,6 @@ def run_prediction_cycle():
         print("予測を入力（上昇: 1, 下降: 0）: ")
         prediction = int(input())
 
-        plot_candlestick(combined_data, include_atr=True, atr_series=atr, highlight_start=next_month_data.index[0], highlight_end=next_month_data.index[-1])
 
         initial_price = next_month_data['Open'].iloc[0]
         high_price = next_month_data['High'].max()
@@ -98,6 +97,9 @@ def run_prediction_cycle():
         # 初期値と高値・安値の差分を表示
         high_diff = high_price - initial_price
         low_diff = initial_price - low_price
+        color = 'blue' if low_diff > high_diff else 'red'
+        plot_candlestick(combined_data, include_atr=True, atr_series=atr, highlight_start=next_month_data.index[0], highlight_end=next_month_data.index[-1], color=color)
+        
         print(f"証券コード: {random_stock}")
         print(f"初期値: {initial_price:.2f}円, 高値: {high_price:.2f}円, 安値: {low_price:.2f}円")
         print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円, 閾値: {current_atr * 1.5:.2f}円")
