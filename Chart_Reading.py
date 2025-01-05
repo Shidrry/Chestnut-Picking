@@ -9,7 +9,9 @@ import mplfinance as mpf
 import time
 import matplotlib.dates as mdates
 
-
+url = 'https://raw.githubusercontent.com/Shidrry/Chestnut-Picking/refs/heads/main/nikkei%2B.csv'
+nikkei_plus = pd.read_csv(url, header=None, names=['code'])
+code_list = nikkei_plus['code'].tolist()
 
 def get_data_from_yfinance(ticker, start_date, end_date):
     data = yf.download(ticker+'.T', start=start_date, end=end_date, progress=False)
