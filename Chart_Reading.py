@@ -60,23 +60,23 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
     marketcolors = mpf.make_marketcolors(
         up='#DC143C', # 上昇時のろうそくの塗りつぶし色
         down='#00BFFF', # 下降時のろうそくの塗りつぶし色
-        edge='lightgray'
+        edge='black'
     )
     my_style = mpf.make_mpf_style(
         marketcolors=marketcolors,
-        gridcolor='white',
+        gridcolor='gray',
         facecolor='black', # チャートの背景の色
-        edgecolor='white', # チャートの外枠の色
+        edgecolor='gray', # チャートの外枠の色
         figcolor='black', # チャートの外側の色
         gridstyle='-.', # チャートのグリッドの種類 "--":実線, "--":破線, ":":点線, "-.":破線と点線の組み合わせ
         gridaxis='both',
         rc = {
-            'xtick.color': 'white', # X軸の色
+            'xtick.color': 'gray', # X軸の色
             'xtick.labelsize': 8, # X軸の文字サイズ
-            'ytick.color': 'white', # Y軸の色
+            'ytick.color': 'gray', # Y軸の色
             'ytick.labelsize': 8, # Y軸の文字サイズ
             'axes.labelsize': 10, # 軸ラベルの文字サイズ
-            'axes.labelcolor': 'white', # 軸ラベルの色
+            'axes.labelcolor': 'gray', # 軸ラベルの色
         }
     )
     mpf.plot(data, type='candle', style=my_style, volume=True, addplot=apds, datetime_format=datetime_format, show_nontrading=False, **kwargs)
