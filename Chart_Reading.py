@@ -66,7 +66,7 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
         marketcolors=marketcolors,
         gridcolor='white',
         facecolor='black', # チャートの背景の色
-        edgecolor='wihte', # チャートの外枠の色
+        edgecolor='white', # チャートの外枠の色
         figcolor='black', # チャートの外側の色
         gridstyle='-.', # チャートのグリッドの種類 "--":実線, "--":破線, ":":点線, "-.":破線と点線の組み合わせ
         gridaxis='both',
