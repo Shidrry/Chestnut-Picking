@@ -2,6 +2,7 @@ import pandas as pd
 import random
 import datetime
 import time
+import yfinace as yf
 
 from common_func import get_data_from_yfinance, add_moving_averages, calculate_atr, plot_candlestick
 
@@ -28,7 +29,8 @@ def run_prediction_cycle_prod(code):
         current_atr = atr.iloc[-1]
         print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}")
         
-        print(f"証券コード: {code}")
+        name = yf.Ticker(code+'.T').info.get('longName')
+        print(f"証券コード: {code}, 会社名: {name}")
 
         print("Enterで次のチャート")
         input()
