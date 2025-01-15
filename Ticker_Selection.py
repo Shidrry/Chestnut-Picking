@@ -36,5 +36,5 @@ def run_prediction_cycle_prod(code):
     else:
         print("データ不足")
 
-for code in random.shuffle(nikkei_plus['code'].tolist()):
+for code in random.sample(nikkei_plus['code'].tolist(), len(nikkei_plus['code'])):
     run_prediction_cycle_prod(code)
