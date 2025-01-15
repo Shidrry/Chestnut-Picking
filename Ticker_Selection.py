@@ -2,7 +2,7 @@ import pandas as pd
 import random
 import datetime
 import time
-import yfinace as yf
+import yfinance as yf
 
 from common_func import get_data_from_yfinance, add_moving_averages, calculate_atr, plot_candlestick
 
