@@ -11,7 +11,7 @@ nikkei_plus = pd.read_csv(url, header=None, names=['code'])
 code_list = nikkei_plus['code'].tolist()
 
 def run_prediction_cycle_prod(code):
-    end_date = datetime.datetime.now()
+    end_date = datetime.datetime.now() + datetime.timedelta(days=1)
     start_date = end_date - datetime.timedelta(days=365)
 
     data = get_data_from_yfinance(code, start_date, end_date)
