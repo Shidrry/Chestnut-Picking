@@ -36,7 +36,7 @@ def run_prediction_cycle():
         # 最新の終値とATRの表示
         current_close = data_last_three_months['Close'].iloc[-1]
         current_atr = atr.iloc[random_end - 1]
-        name = yf.Ticker(code+'.T').info.get('longName')
+        name = yf.Ticker(random_stock+'.T').info.get('longName')
         print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}, 会社名: {name}")
 
         print("Enterもしくはラベル入力で正解表示")
