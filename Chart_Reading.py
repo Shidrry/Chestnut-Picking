@@ -37,9 +37,8 @@ def run_prediction_cycle():
         current_atr = atr.iloc[random_end - 1]
         print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}")
 
-        print("Enterで結果表示")
-        input()
-
+        print("Enterもしくは0,1のラベル入力で正解表示")
+        answer = input()
 
         initial_price = next_month_data['Open'].iloc[0]
         high_price = next_month_data['High'].max()
@@ -55,16 +54,37 @@ def run_prediction_cycle():
         print(f"初期値: {initial_price:.2f}円, 高値: {high_price:.2f}円, 安値: {low_price:.2f}円")
         print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円, 閾値: {current_atr * 1.5:.2f}円")
 
-        print("Enterで次のチャート")
-        input()
+        print("正解のラベル")
+        correct = input()
+        
+        if answer != '' and correct != '':
+            score = 1 if answer == correct else 0
+            return score, False
+        else:
+            return None, True
 
     else:
         print("データ不足")
+        return None, False
 
 if len(sys.argv) > 1:
     n = int(sys.argv[1])
 else:
     n = 5
 
+scores = []
+skips = 0
 for _ in range(n):
-    run_prediction_cycle()
+    result, skip = run_prediction_cycle()
+    if result is not None:
+        scores.append(result)
+    if skip:
+        skips += 1
+
+if scores:
+    correct_answers = scores.count(1)
+    incorrect_answers = scores.count(0)
+    accuracy = correct_answers / len(scores) * 100
+    print(f"総回答数: {len(scores)}, 正解: {correct_answers}, 誤答: {incorrect_answers}, 正答率: {accuracy:.2f}%, スキップ数: {skips}")
+else:
+    print("有効なスコアがありません。")
