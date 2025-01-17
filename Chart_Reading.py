@@ -13,22 +13,22 @@ code_list = nikkei_plus['code'].tolist()
 
 def run_prediction_cycle():
     random_stock = random.choice(code_list)
-    end_date = datetime.datetime.now() - datetime.timedelta(days=60)
+    end_date = datetime.datetime.now() - datetime.timedelta(days=75)
     start_date = end_date - datetime.timedelta(days=5*365 + 100)
 
     data = get_data_from_yfinance(random_stock, start_date, end_date)
     data = add_moving_averages(data)
     atr = calculate_atr(data)  # ATRを計算
 
-    if len(data) > 120:  # データが120日以上ある場合に実行
+    if len(data) > 125:  # データが120日以上ある場合に実行
         # ランダムな期間を選ぶ
-        max_index = len(data) - 20  # 次月のデータ分を確保
+        max_index = len(data) - 25  # 次月のデータ分を確保
         random_start = random.randint(0, max_index - 100)  # 最低100日分確保
-        random_end = random_start + 80  # ランダム期間（80日分）
+        random_end = random_start + 100  # ランダム期間（100日分）
 
         data_last_three_months = data.iloc[random_start:random_end]  # ランダムに選ばれた期間
-        next_month_data = data.iloc[random_end:random_end + 20]  # ランダム選択の次月データ
-        combined_data = data.iloc[random_start:random_end + 20]
+        next_month_data = data.iloc[random_end:random_end + 25]  # ランダム選択の次月データ
+        combined_data = data.iloc[random_start:random_end + 25]
 
         plot_candlestick(data_last_three_months, include_atr=True, atr_series=atr)
         time.sleep(0.5)
@@ -40,7 +40,6 @@ def run_prediction_cycle():
         print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}, 証券コード: {random_stock}, 会社名: {name}")
 
         prediction = input("予想を入力してください: ")
-        print(prediction)
 
         initial_price = next_month_data['Open'].iloc[0]
         high_price = next_month_data['High'].max()
@@ -56,7 +55,6 @@ def run_prediction_cycle():
         print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円")
 
         user_feedback = input("結果を受けてのコメントを入力してください: ")
-        print(user_feedback)
 
     else:
         print("データ不足")

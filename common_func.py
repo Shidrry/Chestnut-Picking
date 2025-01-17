@@ -20,8 +20,8 @@ def calculate_atr(data, period=14):
 
 def add_moving_averages(data):
     data['MA5'] = data['Close'].rolling(window=5).mean()
-    data['MA10'] = data['Close'].rolling(window=10).mean()
-    data['MA20'] = data['Close'].rolling(window=20).mean()
+    data['MA10'] = data['Close'].rolling(window=25).mean()
+    data['MA20'] = data['Close'].rolling(window=75).mean()
     return data
 
 def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=None, highlight_end=None, color=None):
@@ -32,8 +32,8 @@ def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=N
 
     # 移動平均線の追加
     apds.append(mpf.make_addplot(data['MA5'], color='yellow', linestyle='solid', width=0.75))
-    apds.append(mpf.make_addplot(data['MA10'], color='orange', linestyle='solid', width=0.75))
-    apds.append(mpf.make_addplot(data['MA20'], color='green', linestyle='solid', width=0.75))
+    apds.append(mpf.make_addplot(data['MA25'], color='orange', linestyle='solid', width=0.75))
+    apds.append(mpf.make_addplot(data['MA75'], color='green', linestyle='solid', width=0.75))
 
     if highlight_start and highlight_end and color:
         where_values = (data.index >= highlight_start) & (data.index <= highlight_end)
