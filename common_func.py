@@ -20,8 +20,8 @@ def calculate_atr(data, period=14):
 
 def add_moving_averages(data):
     data['MA5'] = data['Close'].rolling(window=5).mean()
-    data['MA10'] = data['Close'].rolling(window=25).mean()
-    data['MA20'] = data['Close'].rolling(window=75).mean()
+    data['MA25'] = data['Close'].rolling(window=25).mean()
+    data['MA75'] = data['Close'].rolling(window=75).mean()
     return data
 
 def plot_candlestick(data, include_atr=False, atr_series=None, highlight_start=None, highlight_end=None, color=None):
