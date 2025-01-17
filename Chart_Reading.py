@@ -59,7 +59,7 @@ def run_prediction_cycle():
         print("正解のラベル")
         correct = input()
         
-        if answer != '' and correct != '':
+        if answer != '':
             score = 1 if answer == correct else 0
             return score, False
         else:
