@@ -37,10 +37,10 @@ def run_prediction_cycle():
         current_close = data_last_three_months['Close'].iloc[-1]
         current_atr = atr.iloc[random_end - 1]
         name = yf.Ticker(random_stock+'.T').info.get('longName')
-        print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}, 会社名: {name}")
+        print(f"現在の終値: {current_close:.2f}, 現在のATR値: {current_atr:.2f}, 証券コード: {random_stock}, 会社名: {name}")
 
-        print("Enterもしくはラベル入力で正解表示")
-        answer = input()
+        prediction = input("予想を入力してください: ")
+        print(prediction)
 
         initial_price = next_month_data['Open'].iloc[0]
         high_price = next_month_data['High'].max()
@@ -52,41 +52,19 @@ def run_prediction_cycle():
         color = 'blue' if low_diff > high_diff else 'red'
         plot_candlestick(combined_data, include_atr=True, atr_series=atr, highlight_start=next_month_data.index[0], highlight_end=next_month_data.index[-1], color=color)
         
-        print(f"証券コード: {random_stock}")
         print(f"初期値: {initial_price:.2f}円, 高値: {high_price:.2f}円, 安値: {low_price:.2f}円")
-        print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円, 閾値: {current_atr * 1.5:.2f}円")
+        print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円")
 
-        print("正解のラベル")
-        correct = input()
-        
-        if answer != '':
-            score = 1 if answer == correct else 0
-            return score, False
-        else:
-            return None, True
+        user_feedback = input("結果を受けてのコメントを入力してください: ")
+        print(user_feedback)
 
     else:
         print("データ不足")
-        return None, False
 
 if len(sys.argv) > 1:
     n = int(sys.argv[1])
 else:
     n = 5
 
-scores = []
-skips = 0
 for _ in range(n):
-    result, skip = run_prediction_cycle()
-    if result is not None:
-        scores.append(result)
-    if skip:
-        skips += 1
-
-if scores:
-    correct_answers = scores.count(1)
-    incorrect_answers = scores.count(0)
-    accuracy = correct_answers / len(scores) * 100
-    print(f"総回答数: {len(scores)}, 正解: {correct_answers}, 誤答: {incorrect_answers}, 正答率: {accuracy:.2f}%, スキップ数: {skips}")
-else:
-    print("有効なスコアがありません。")
+    run_prediction_cycle()
