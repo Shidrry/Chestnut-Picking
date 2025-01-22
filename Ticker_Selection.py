@@ -37,6 +37,7 @@ def run_prediction_cycle_prod(code):
         
         name = yf.Ticker(code+'.T').info.get('longName')
         print(f"証券コード: {code}, 会社名: {name}")
+        print(f"直近売買代金: {resent_trading_value}")
 
         print("Enterで次のチャート")
         input()
@@ -44,5 +45,8 @@ def run_prediction_cycle_prod(code):
     else:
         print(f"スキップ {code}: データ不足")
 
+count = 0
 for code in random.sample(nikkei_plus['code'].tolist(), len(nikkei_plus['code'])):
+    count += 1
+    print(f"No. {count}")
     run_prediction_cycle_prod(code)
