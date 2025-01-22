@@ -15,6 +15,12 @@ def run_prediction_cycle_prod(code):
     start_date = end_date - datetime.timedelta(days=365)
 
     data = get_data_from_yfinance(code, start_date, end_date)
+    
+    trading_value_threshold = 20000*10^6 # 20億以上はほしい
+    resent_trading_value = data['Close'].iloc[-1] * data['Volume'].iloc[-1]
+    if resent_trading_value <= trading_value_threshold:
+        print(f"スキップ {code}: 最近の売買代金が {trading_value_threshold} 以下です。")
+
     data = add_moving_averages(data)
     atr = calculate_atr(data)  # ATRを計算
 
@@ -36,7 +42,7 @@ def run_prediction_cycle_prod(code):
         input()
 
     else:
-        print("データ不足")
+        print(f"スキップ {code}: データ不足")
 
 for code in random.sample(nikkei_plus['code'].tolist(), len(nikkei_plus['code'])):
     run_prediction_cycle_prod(code)
