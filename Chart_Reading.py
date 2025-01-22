@@ -54,7 +54,7 @@ def run_prediction_cycle():
         print(f"初期値: {initial_price:.2f}円, 高値: {high_price:.2f}円, 安値: {low_price:.2f}円")
         print(f"高値差分: {high_diff:.2f}円, 安値差分: {low_diff:.2f}円")
 
-        user_feedback = input("結果を受けてのコメントを入力してください: ")
+        user_feedback = input("Enterで次: ")
 
     else:
         print("データ不足")
