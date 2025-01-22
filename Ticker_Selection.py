@@ -37,7 +37,7 @@ def run_prediction_cycle_prod(code):
         
         name = yf.Ticker(code+'.T').info.get('longName')
         print(f"証券コード: {code}, 会社名: {name}")
-        print(f"直近売買代金: {resent_trading_value}")
+        print(f"直近売買代金: {format(resent_trading_value, ',')}")
 
         print("Enterで次のチャート")
         input()
