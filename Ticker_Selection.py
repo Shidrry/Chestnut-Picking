@@ -20,6 +20,7 @@ def run_prediction_cycle_prod(code):
     resent_trading_value = data['Close'].iloc[-1] * data['Volume'].iloc[-1]
     if resent_trading_value <= trading_value_threshold:
         print(f"スキップ {code}: 最近の売買代金が {trading_value_threshold} 以下です。")
+        return
 
     data = add_moving_averages(data)
     atr = calculate_atr(data)  # ATRを計算
