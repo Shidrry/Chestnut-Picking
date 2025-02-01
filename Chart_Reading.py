@@ -11,7 +11,7 @@ url = 'https://raw.githubusercontent.com/Shidrry/Chestnut-Picking/refs/heads/mai
 nikkei_plus = pd.read_csv(url, header=None, names=['code'])
 code_list = nikkei_plus['code'].tolist()
 
-def run_prediction_cycle(bull_only=False):
+def run_prediction_cycle():
     random_stock = random.choice(code_list)
     end_date = datetime.datetime.now() - datetime.timedelta(days=75)
     start_date = end_date - datetime.timedelta(days=5*365 + 100)
