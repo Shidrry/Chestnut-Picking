@@ -27,7 +27,7 @@ def run_prediction_cycle(bull_only=False):
         
         mask = bullish_cross.index < datetime.datetime.now() - datetime.timedelta(days=25) ## 正解表示ができる期間
         end_index = bullish_cross[mask].sample().index[0]
-        random_end = data.index.get_loc(end_index)
+        random_end = data.index.get_loc(end_index) + 1
         random_start = random_end - 100
 
         data_last_three_months = data.iloc[random_start:random_end]  # ランダムに選ばれた期間
