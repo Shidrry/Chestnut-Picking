@@ -69,4 +69,7 @@ else:
     n = 5
 
 for _ in range(n):
-    run_prediction_cycle()
+    try:
+        run_prediction_cycle()
+    except:
+        pass
