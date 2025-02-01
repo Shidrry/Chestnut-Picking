@@ -20,7 +20,7 @@ def run_prediction_cycle(bull_only=False):
     data = add_moving_averages(data)
     atr = calculate_atr(data)  # ATRを計算
     
-    bullish_cross = data[(data['Close'] > data['MA5']) & (data['MA5'] > data['Open'])]
+    bullish_cross = data[(data['Close'] > data['MA5']) & (data['MA5'] > data['Open']) & (data['Close'] > data['Open'])]
 
     if len(data) > 125:  # データが120日以上ある場合に実行
         # ランダムな期間を選ぶ
