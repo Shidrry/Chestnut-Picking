@@ -19,12 +19,16 @@ def run_prediction_cycle(bull_only=False):
     data = get_data_from_yfinance(random_stock, start_date, end_date)
     data = add_moving_averages(data)
     atr = calculate_atr(data)  # ATRを計算
+    
+    bullish_cross = data[(data['Close'] > data['MA5']) & (data['MA5'] > data['Open'])]
 
     if len(data) > 125:  # データが120日以上ある場合に実行
         # ランダムな期間を選ぶ
-        max_index = len(data) - 25  # 次月のデータ分を確保
-        random_start = random.randint(0, max_index - 100)  # 最低100日分確保
-        random_end = random_start + 100  # ランダム期間（100日分）
+        
+        mask = bullish_cross.index < datetime.datetime.now() - datetime.timedelta(days=25) ## 正解表示ができる期間
+        end_index = bullish_cross[mask].sample().index[0]
+        random_end = data.index.get_loc(end_index)
+        random_start = random_end - 100
 
         data_last_three_months = data.iloc[random_start:random_end]  # ランダムに選ばれた期間
         next_month_data = data.iloc[random_end:random_end + 25]  # ランダム選択の次月データ
