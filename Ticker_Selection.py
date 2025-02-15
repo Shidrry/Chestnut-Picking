@@ -17,9 +17,13 @@ def run_prediction_cycle_prod(code):
     data = get_data_from_yfinance(code, start_date, end_date)
     
     trading_value_threshold = 2*10**9
-    resent_trading_value = data['Close'].iloc[-1] * data['Volume'].iloc[-1]
-    if resent_trading_value <= trading_value_threshold:
-        print(f"スキップ {code}: 最近の売買代金が {trading_value_threshold} 以下です。")
+    try:
+        resent_trading_value = data['Close'].iloc[-1] * data['Volume'].iloc[-1]
+        if resent_trading_value <= trading_value_threshold:
+            print(f"スキップ {code}: 最近の売買代金が {trading_value_threshold} 以下です。")
+            return
+    except:
+        print('スキップ: 直近のデータが取得不可')
         return
 
     data = add_moving_averages(data)
